@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Panel className="org.openflexo.gina.utils.FIBInspector" layout="border"
+	titleFont="SansSerif,0,12" darkLevel="0"
+	controllerClassName="org.openflexo.fml.controller.FMLFIBInspectorController"
+	dataClassName="org.openflexo.technologyadapter.markdown.model.MarkdownParagraph"
+	font="SansSerif,0,12" name="Inspector">
+	<TabPanel name="Tab" constraints="border(location=center)">
+		<Tab title="Basic" layout="twocols" titleFont="SansSerif,0,11"
+			darkLevel="0" index="0" font="SansSerif,0,11" useScrollBar="true"
+			horizontalScrollbarPolicy="HORIZONTAL_SCROLLBAR_AS_NEEDED"
+			verticalScrollbarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" name="BasicTab">
+			<Label label="text" index="0"
+				constraints="twocols(expandHorizontally=false;expandVertically=false;index=0;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=5;location=left)"
+				name="TextLabel" localize="true" />
+			<TextArea index="1" data="data.rawText"
+				constraints="twocols(expandHorizontally=true;expandVertically=true;index=1;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=0;location=right)"
+				name="Text" localize="true" columns="20" rows="4" />
+		</Tab>
+	</TabPanel>
+	<LocalizedDictionary>
+		<Localized key="text" lang="English" value="Text" />
+		<Localized key="text" lang="French" value="Texte" />
+	</LocalizedDictionary>
+	<Parameter name="title" value="Paragraph" />
+</Panel>

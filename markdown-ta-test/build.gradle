@@ -1,0 +1,8 @@
+dependencies {
+    testImplementation project(":markdown-ta")
+    testImplementation flexoFoundation()
+    testImplementation flexoFoundationTest()
+    testImplementation fmlCli()
+    testImplementation fmlCliTest()
+    testRuntimeOnly project(':markdown-ta-test-rc')
+}

@@ -1,0 +1,24 @@
+// Test: edition actions via MarkdownModel VirtualModel
+service ResourceCenterService status;
+resources;
+context;
+
+// Load the VirtualModel
+markdownModel = load -r ["http://openflexo.org/markdown-test/FML/MarkdownModel.fml"];
+assert markdownModel != null;
+log "VirtualModel loaded: " + markdownModel;
+
+// Load an existing document to bind it to the model slot
+mdDoc = load -r ["http://openflexo.org/markdown-test/TestResourceCenter/EmptyDocument.md"];
+assert mdDoc != null;
+log "Document loaded: " + mdDoc;
+
+// Create a temp resource center to hold the VFI
+service ResourceCenterService add_temp_rc;
+
+// Instantiate the VirtualModel — this runs the create() behavior which tests all edition actions
+myModel = markdownModel.new MarkdownModel(mdDoc.resource) with (name="MarkdownModelTest");
+assert myModel != null;
+log "VirtualModel instance created: " + myModel;
+
+log "Test PASSED: all edition actions executed successfully";

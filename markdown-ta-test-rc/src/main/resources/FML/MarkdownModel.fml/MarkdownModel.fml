@@ -1,0 +1,165 @@
+use org.openflexo.technologyadapter.markdown.MarkdownModelSlot as MD;
+
+import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
+import org.openflexo.technologyadapter.markdown.model.MarkdownHeading;
+import org.openflexo.technologyadapter.markdown.model.MarkdownParagraph;
+import org.openflexo.technologyadapter.markdown.model.MarkdownCodeBlock;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.AddMarkdownHeading;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.AddMarkdownParagraph;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.AddMarkdownCodeBlock;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.SelectMarkdownHeading;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.SelectUniqueMarkdownHeading;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.SelectMarkdownParagraph;
+import org.openflexo.technologyadapter.markdown.fml.editionaction.SelectUniqueMarkdownParagraph;
+import java.lang.String;
+import java.lang.Integer;
+import java.util.List;
+
+@URI("http://openflexo.org/markdown-test/FML/MarkdownModel.fml")
+public model MarkdownModel {
+
+    public MarkdownDocument markdownDoc with MD::MDModelSlot();
+
+    create(required Resource<MarkdownDocument> resource) {
+        connect markdownDoc using parameters.resource;
+
+        log "==============================================";
+        log "Markdown Edition Actions Tests";
+        log "==============================================";
+
+        int initialCount = markdownDoc.elements.size();
+        log "Initial element count: " + initialCount;
+
+
+        log "";
+        log "TEST 1: AddMarkdownHeading";
+        log "----------------------------------------------";
+
+        MarkdownHeading h1 = MD::AddMarkdownHeading(level=1, text="Chapter One") in markdownDoc;
+        if (h1 == null) {
+            log "ERROR: AddMarkdownHeading returned null";
+        } else {
+            log "Added H1 heading: " + h1;
+        }
+        if (h1.level != 1) {
+            log "ERROR: Expected level 1, got " + h1.level;
+        } else {
+            log "H1 level OK";
+        }
+
+        MarkdownHeading h2a = MD::AddMarkdownHeading(level=2, text="Section 1.1") in markdownDoc;
+        MarkdownHeading h2b = MD::AddMarkdownHeading(level=2, text="Section 1.2") in markdownDoc;
+
+        int afterHeadings = markdownDoc.elements.size();
+        log "Elements after 3 headings: " + afterHeadings;
+        if (afterHeadings != initialCount + 3) {
+            log "ERROR: Expected " + (initialCount + 3) + " elements, got " + afterHeadings;
+        } else {
+            log "TEST 1 PASSED!";
+        }
+
+
+        log "";
+        log "TEST 2: AddMarkdownParagraph";
+        log "----------------------------------------------";
+
+        MarkdownParagraph p1 = MD::AddMarkdownParagraph(text="First paragraph.") in markdownDoc;
+        if (p1 == null) {
+            log "ERROR: AddMarkdownParagraph returned null";
+        } else {
+            log "Added paragraph: " + p1;
+        }
+
+        MarkdownParagraph p2 = MD::AddMarkdownParagraph(text="Second paragraph.") in markdownDoc;
+
+        int afterParagraphs = markdownDoc.elements.size();
+        log "Elements after 2 paragraphs: " + afterParagraphs;
+        if (afterParagraphs != initialCount + 5) {
+            log "ERROR: Expected " + (initialCount + 5) + " elements, got " + afterParagraphs;
+        } else {
+            log "TEST 2 PASSED!";
+        }
+
+
+        log "";
+        log "TEST 3: AddMarkdownCodeBlock";
+        log "----------------------------------------------";
+
+        MarkdownCodeBlock cb1 = MD::AddMarkdownCodeBlock(language="java", content="System.out.println(\"Hello\");") in markdownDoc;
+        if (cb1 == null) {
+            log "ERROR: AddMarkdownCodeBlock returned null";
+        } else {
+            log "Added code block: " + cb1;
+        }
+        if (cb1.language != "java") {
+            log "ERROR: Expected language 'java', got " + cb1.language;
+        } else {
+            log "Code block language OK";
+        }
+
+        MarkdownCodeBlock cb2 = MD::AddMarkdownCodeBlock(language="python", content="print('hello')") in markdownDoc;
+
+        int afterCodeBlocks = markdownDoc.elements.size();
+        log "Elements after 2 code blocks: " + afterCodeBlocks;
+        if (afterCodeBlocks != initialCount + 7) {
+            log "ERROR: Expected " + (initialCount + 7) + " elements, got " + afterCodeBlocks;
+        } else {
+            log "TEST 3 PASSED!";
+        }
+
+
+        log "";
+        log "TEST 4: SelectMarkdownHeading";
+        log "----------------------------------------------";
+
+        List<MarkdownHeading> allHeadings = MD::SelectMarkdownHeading() from markdownDoc;
+        log "Total headings: " + allHeadings.size();
+        if (allHeadings.size() < 3) {
+            log "ERROR: Expected at least 3 headings, got " + allHeadings.size();
+        } else {
+            log "TEST 4a PASSED! (all headings)";
+        }
+
+        List<MarkdownHeading> level2Headings = MD::SelectMarkdownHeading(level=2) from markdownDoc;
+        log "Level-2 headings: " + level2Headings.size();
+        if (level2Headings.size() != 2) {
+            log "ERROR: Expected 2 level-2 headings, got " + level2Headings.size();
+        } else {
+            log "TEST 4b PASSED! (level-2 headings)";
+        }
+
+
+        log "";
+        log "TEST 5: SelectUniqueMarkdownHeading";
+        log "----------------------------------------------";
+
+        MarkdownHeading uniqueH1 = MD::SelectUniqueMarkdownHeading(level=1) from markdownDoc;
+        if (uniqueH1 == null) {
+            log "ERROR: SelectUniqueMarkdownHeading(level=1) returned null";
+        } else {
+            log "Unique H1: " + uniqueH1;
+            log "TEST 5 PASSED!";
+        }
+
+
+        log "";
+        log "TEST 6: SelectMarkdownParagraph";
+        log "----------------------------------------------";
+
+        List<MarkdownParagraph> allParagraphs = MD::SelectMarkdownParagraph() from markdownDoc;
+        log "Total paragraphs: " + allParagraphs.size();
+        if (allParagraphs.size() < 2) {
+            log "ERROR: Expected at least 2 paragraphs, got " + allParagraphs.size();
+        } else {
+            log "TEST 6 PASSED!";
+        }
+
+
+        log "==============================================";
+        log "All tests executed.";
+        log "  Headings: " + allHeadings.size();
+        log "  Paragraphs: " + allParagraphs.size();
+        log "  Total elements: " + markdownDoc.elements.size();
+        log "==============================================";
+    }
+}

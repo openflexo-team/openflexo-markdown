@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Panel className="org.openflexo.gina.utils.FIBInspector" layout="border"
+	titleFont="SansSerif,0,12" darkLevel="0"
+	controllerClassName="org.openflexo.fml.controller.FMLFIBInspectorController"
+	dataClassName="org.openflexo.technologyadapter.markdown.model.MarkdownCodeBlock"
+	font="SansSerif,0,12" name="Inspector">
+	<TabPanel name="Tab" constraints="border(location=center)">
+		<Tab title="Basic" layout="twocols" titleFont="SansSerif,0,11"
+			darkLevel="0" index="0" font="SansSerif,0,11" useScrollBar="true"
+			horizontalScrollbarPolicy="HORIZONTAL_SCROLLBAR_AS_NEEDED"
+			verticalScrollbarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" name="BasicTab">
+			<Label label="language" index="0"
+				constraints="twocols(expandHorizontally=false;expandVertically=false;index=0;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=5;location=left)"
+				name="LangLabel" localize="true" />
+			<TextField index="1" data="data.language"
+				constraints="twocols(expandHorizontally=true;expandVertically=false;index=1;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=0;location=right)"
+				name="Language" localize="true" columns="10" />
+			<Label label="content" index="2"
+				constraints="twocols(expandHorizontally=false;expandVertically=false;index=2;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=5;location=left)"
+				name="ContentLabel" localize="true" />
+			<TextArea index="3" data="data.content"
+				constraints="twocols(expandHorizontally=true;expandVertically=true;index=3;insetsBottom=0;insetsLeft=2;insetsRight=2;insetsTop=0;location=right)"
+				name="Content" localize="true" columns="20" rows="6" />
+		</Tab>
+	</TabPanel>
+	<LocalizedDictionary>
+		<Localized key="language" lang="English" value="Language" />
+		<Localized key="language" lang="French" value="Langage" />
+		<Localized key="content" lang="English" value="Content" />
+		<Localized key="content" lang="French" value="Contenu" />
+	</LocalizedDictionary>
+	<Parameter name="title" value="Code block" />
+</Panel>

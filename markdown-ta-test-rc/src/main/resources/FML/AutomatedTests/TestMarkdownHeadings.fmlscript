@@ -1,0 +1,41 @@
+// Test: document structure and heading hierarchy in AllHeadingLevels.md
+// Note: type-specific property access (heading.level) requires a typed FML context
+// and is tested via MarkdownModel.fml / TestMarkdownEditionActions.fmlscript.
+// This script tests structural invariants that are accessible via FlexoDocument API.
+service ResourceCenterService status;
+resources;
+context;
+
+mdDoc = load -r ["http://openflexo.org/markdown-test/TestResourceCenter/AllHeadingLevels.md"];
+assert mdDoc != null;
+
+// AllHeadingLevels.md: 6 heading levels, each followed by a paragraph = at least 12 elements,
+// plus additional headings in the "Back to Level 2" section.
+log "Elements count: " + mdDoc.elements.size();
+assert mdDoc.elements.size() >= 12;
+
+// There is exactly one H1 => one root element
+log "Root elements count: " + mdDoc.rootElements.size();
+assert mdDoc.rootElements.size() == 1;
+
+// Individual element presence (structural, not typed)
+e0 = mdDoc.elements.get(0);
+assert e0 != null;
+log "First element (H1): " + e0;
+
+e1 = mdDoc.elements.get(1);
+assert e1 != null;
+log "Second element (P under H1): " + e1;
+
+e2 = mdDoc.elements.get(2);
+assert e2 != null;
+log "Third element (H2): " + e2;
+
+// Root element has children (all other headings descend from H1)
+root = mdDoc.rootElements.get(0);
+assert root != null;
+log "Root element: " + root;
+assert root.childrenElements.size() > 0;
+log "Root children count: " + root.childrenElements.size();
+
+log "Test PASSED: AllHeadingLevels.md structure verified";

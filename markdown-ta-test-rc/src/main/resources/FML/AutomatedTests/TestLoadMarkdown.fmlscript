@@ -1,0 +1,16 @@
+// Test: basic loading of a Markdown document
+service ResourceCenterService status;
+resources;
+context;
+
+mdDoc = load -r ["http://openflexo.org/markdown-test/TestResourceCenter/SimpleDocument.md"];
+log "mdDoc=" + mdDoc;
+assert mdDoc != null;
+
+log "Elements count: " + mdDoc.elements.size();
+assert mdDoc.elements.size() > 0;
+
+log "Root elements count: " + mdDoc.rootElements.size();
+assert mdDoc.rootElements.size() > 0;
+
+log "Test PASSED: SimpleDocument loaded with " + mdDoc.elements.size() + " elements";

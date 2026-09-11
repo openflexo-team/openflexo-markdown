@@ -1,0 +1,34 @@
+// Test: document structure of DocumentWithCodeBlocks.md
+// DocumentWithCodeBlocks.md has headings, paragraphs and 5 code blocks:
+//   java (fenced), python (fenced), bash (fenced), indented, and no-language fenced.
+// Type-specific properties (language, content) require a typed FML context
+// and are exercised in MarkdownModel.fml / TestMarkdownEditionActions.fmlscript.
+service ResourceCenterService status;
+resources;
+context;
+
+mdDoc = load -r ["http://openflexo.org/markdown-test/TestResourceCenter/DocumentWithCodeBlocks.md"];
+assert mdDoc != null;
+
+// 1 H1 + 6 H2 + several paragraphs + 5 code blocks = at least 13 elements
+log "Total elements: " + mdDoc.elements.size();
+assert mdDoc.elements.size() >= 13;
+
+// The single H1 is the sole root element
+log "Root elements: " + mdDoc.rootElements.size();
+assert mdDoc.rootElements.size() == 1;
+
+// Spot-check a few elements by index
+e0 = mdDoc.elements.get(0);
+assert e0 != null;
+log "Element 0 (H1): " + e0;
+
+e4 = mdDoc.elements.get(4);
+assert e4 != null;
+log "Element 4 (first code block): " + e4;
+
+e6 = mdDoc.elements.get(6);
+assert e6 != null;
+log "Element 6 (second code block): " + e6;
+
+log "Test PASSED: DocumentWithCodeBlocks.md structure verified";

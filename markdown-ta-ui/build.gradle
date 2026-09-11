@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(":markdown-ta")
+
+    implementation flexoUi()
+    implementation flexoDocumentationUi()
+
+    testImplementation flexoUiTest()
+    testImplementation flexoFoundationTest()
+    testRuntimeOnly project(':markdown-ta-test-rc')
+}
