@@ -93,7 +93,8 @@ public class MarkdownTechnologyAdapter extends TechnologyAdapter<MarkdownTechnol
 		MarkdownDocumentRepository<I> returned = resourceCenter.retrieveRepository(MarkdownDocumentRepository.class, this);
 		if (returned == null) {
 			returned = MarkdownDocumentRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, MarkdownDocumentRepository.class, this);
+			// Another thread may have registered one meanwhile: use the registered one (CORE-D-25)
+			returned = resourceCenter.registerRepository(returned, MarkdownDocumentRepository.class, this);
 		}
 		return returned;
 	}
