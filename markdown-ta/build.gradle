@@ -2,7 +2,7 @@ dependencies {
     implementation flexoFoundation()
     api flexoDocumentation()
     // CommonMark-compliant Markdown parser
-    api 'com.vladsch.flexmark:flexmark:0.62.2'
+    api 'com.vladsch.flexmark:flexmark:0.64.8'
     testImplementation flexoFoundationTest()
 
     // Test resource center
