@@ -34,10 +34,6 @@
 			verticalScrollbarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" name="AdvancedTab" />
 	</TabPanel>
 	<LocalizedDictionary>
-		<Localized key="Advanced" lang="French" value="Avancé" />
-		<Localized key="Basic" lang="French" value="Basique" />
-		<Localized key="name" lang="English" value="Name" />
-		<Localized key="name" lang="French" value="Nom" />
 		<Localized key="document" lang="English" value="Document" />
 		<Localized key="document" lang="French" value="Document" />
 	</LocalizedDictionary>
