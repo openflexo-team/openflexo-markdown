@@ -35,7 +35,6 @@ import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownModelSlot;
 import org.openflexo.technologyadapter.markdown.MarkdownTechnologyAdapter;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
@@ -49,7 +48,6 @@ import org.openflexo.technologyadapter.markdown.rm.MarkdownDocumentResource;
  */
 @ModelEntity
 @ImplementationClass(CreateMarkdownDocumentResource.CreateMarkdownDocumentResourceImpl.class)
-@XMLElement
 @FML("CreateMarkdownDocumentResource")
 public interface CreateMarkdownDocumentResource
 		extends AbstractCreateResource<MarkdownModelSlot, MarkdownDocument, MarkdownTechnologyAdapter> {

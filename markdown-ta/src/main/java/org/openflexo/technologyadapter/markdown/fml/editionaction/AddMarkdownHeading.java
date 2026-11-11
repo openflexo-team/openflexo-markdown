@@ -36,8 +36,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownModelSlot;
 import org.openflexo.technologyadapter.markdown.MarkdownTechnologyAdapter;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
@@ -51,7 +49,6 @@ import org.openflexo.technologyadapter.markdown.model.MarkdownHeading;
  */
 @ModelEntity
 @ImplementationClass(AddMarkdownHeading.AddMarkdownHeadingImpl.class)
-@XMLElement
 @FML("AddMarkdownHeading")
 public interface AddMarkdownHeading
 		extends TechnologySpecificActionDefiningReceiver<MarkdownModelSlot, MarkdownDocument, MarkdownHeading> {
@@ -63,7 +60,6 @@ public interface AddMarkdownHeading
 	String TEXT_KEY = "text";
 
 	@Getter(value = LEVEL_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = LEVEL_KEY, required = false, description = "Heading level (1-6)")
 	DataBinding<Integer> getLevel();
 
@@ -71,7 +67,6 @@ public interface AddMarkdownHeading
 	void setLevel(DataBinding<Integer> level);
 
 	@Getter(value = TEXT_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = TEXT_KEY, required = false, description = "Heading text")
 	DataBinding<String> getText();
 

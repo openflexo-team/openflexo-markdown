@@ -33,7 +33,6 @@ import org.openflexo.foundation.fml.annotations.DeclareFlexoRoles;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.fml.MarkdownCodeBlockActorReference;
 import org.openflexo.technologyadapter.markdown.fml.MarkdownCodeBlockRole;
 import org.openflexo.technologyadapter.markdown.fml.MarkdownHeadingRole;
@@ -62,7 +61,6 @@ import org.openflexo.technologyadapter.markdown.rm.MarkdownDocumentResource;
 		SelectMarkdownParagraph.class, SelectUniqueMarkdownParagraph.class })
 @ModelEntity
 @ImplementationClass(MarkdownModelSlot.MarkdownModelSlotImpl.class)
-@XMLElement
 @FML("MDModelSlot")
 public interface MarkdownModelSlot extends FlexoDocumentModelSlot<MarkdownDocument, MarkdownDocumentResource, MarkdownTechnologyAdapter> {
 

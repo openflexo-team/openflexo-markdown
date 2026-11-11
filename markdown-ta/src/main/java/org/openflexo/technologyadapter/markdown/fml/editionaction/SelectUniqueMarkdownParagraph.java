@@ -24,7 +24,6 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.editionaction.UniqueFetchRequest;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownModelSlot;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
 import org.openflexo.technologyadapter.markdown.model.MarkdownParagraph;
@@ -36,7 +35,6 @@ import org.openflexo.technologyadapter.markdown.model.MarkdownParagraph;
  */
 @ModelEntity
 @ImplementationClass(SelectUniqueMarkdownParagraph.AbstractSelectMarkdownParagraphImpl.class)
-@XMLElement
 @FML("SelectUniqueMarkdownParagraph")
 public interface SelectUniqueMarkdownParagraph
 		extends AbstractSelectMarkdownParagraph<MarkdownParagraph>,

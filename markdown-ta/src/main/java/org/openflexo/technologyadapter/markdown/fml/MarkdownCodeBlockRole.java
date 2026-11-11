@@ -30,7 +30,6 @@ import org.openflexo.foundation.fml.rt.FlexoConceptInstance;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownTechnologyAdapter;
 import org.openflexo.technologyadapter.markdown.model.MarkdownCodeBlock;
 
@@ -45,7 +44,6 @@ import org.openflexo.technologyadapter.markdown.model.MarkdownCodeBlock;
  */
 @ModelEntity
 @ImplementationClass(MarkdownCodeBlockRole.MarkdownCodeBlockRoleImpl.class)
-@XMLElement
 @FML("MarkdownCodeBlockRole")
 public interface MarkdownCodeBlockRole extends FlexoRole<MarkdownCodeBlock> {
 

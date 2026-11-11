@@ -35,8 +35,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownModelSlot;
 import org.openflexo.technologyadapter.markdown.model.MarkdownCodeBlock;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
@@ -49,7 +47,6 @@ import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
  */
 @ModelEntity
 @ImplementationClass(AddMarkdownCodeBlock.AddMarkdownCodeBlockImpl.class)
-@XMLElement
 @FML("AddMarkdownCodeBlock")
 public interface AddMarkdownCodeBlock
 		extends TechnologySpecificActionDefiningReceiver<MarkdownModelSlot, MarkdownDocument, MarkdownCodeBlock> {
@@ -61,7 +58,6 @@ public interface AddMarkdownCodeBlock
 	String CONTENT_KEY = "content";
 
 	@Getter(value = LANGUAGE_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = LANGUAGE_KEY, required = false, description = "Language identifier (e.g. 'java', 'python')")
 	DataBinding<String> getLanguage();
 
@@ -69,7 +65,6 @@ public interface AddMarkdownCodeBlock
 	void setLanguage(DataBinding<String> language);
 
 	@Getter(value = CONTENT_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = CONTENT_KEY, required = false, description = "Code block content")
 	DataBinding<String> getContent();
 

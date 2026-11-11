@@ -27,7 +27,6 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
-import org.openflexo.pamela.annotations.XMLElement;
 import org.openflexo.technologyadapter.markdown.MarkdownTechnologyAdapter;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
 import org.openflexo.technologyadapter.markdown.model.MarkdownHeading;
@@ -43,7 +42,6 @@ import org.openflexo.technologyadapter.markdown.model.MarkdownHeading;
  */
 @ModelEntity
 @ImplementationClass(MarkdownHeadingRole.MarkdownHeadingRoleImpl.class)
-@XMLElement
 @FML("MarkdownHeadingRole")
 public interface MarkdownHeadingRole
 		extends FlexoParagraphRole<MarkdownHeading, MarkdownDocument, MarkdownTechnologyAdapter> {

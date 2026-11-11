@@ -36,7 +36,6 @@ import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.PropertyIdentifier;
 import org.openflexo.pamela.annotations.Setter;
-import org.openflexo.pamela.annotations.XMLAttribute;
 import org.openflexo.technologyadapter.markdown.MarkdownModelSlot;
 import org.openflexo.technologyadapter.markdown.model.MarkdownDocument;
 import org.openflexo.technologyadapter.markdown.model.MarkdownHeading;
@@ -57,7 +56,6 @@ public interface AbstractSelectMarkdownHeading<AT>
 	String LEVEL_KEY = "level";
 
 	@Getter(value = LEVEL_KEY)
-	@XMLAttribute
 	@FMLAttribute(value = LEVEL_KEY, required = false, description = "Filter by heading level (1-6). Leave unset to select all levels.")
 	DataBinding<Integer> getLevel();
 
