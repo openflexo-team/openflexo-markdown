@@ -20,6 +20,7 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public interface AbstractSelectMarkdownHeading<AT>
 		}
 
 		@Override
-		public List<MarkdownHeading> performExecute(RunTimeEvaluationContext evaluationContext) {
+		public List<MarkdownHeading> performExecute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
 				return new ArrayList<>();

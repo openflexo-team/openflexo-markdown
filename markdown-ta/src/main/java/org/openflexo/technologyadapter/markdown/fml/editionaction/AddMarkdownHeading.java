@@ -20,6 +20,7 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
@@ -88,7 +89,7 @@ public interface AddMarkdownHeading
 		}
 
 		@Override
-		public MarkdownHeading execute(RunTimeEvaluationContext evaluationContext) {
+		public MarkdownHeading execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
 				logger.warning("AddMarkdownHeading: receiver document is null");

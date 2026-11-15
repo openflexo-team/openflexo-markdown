@@ -20,6 +20,7 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
@@ -86,7 +87,7 @@ public interface AddMarkdownCodeBlock
 		}
 
 		@Override
-		public MarkdownCodeBlock execute(RunTimeEvaluationContext evaluationContext) {
+		public MarkdownCodeBlock execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
 				logger.warning("AddMarkdownCodeBlock: receiver document is null");

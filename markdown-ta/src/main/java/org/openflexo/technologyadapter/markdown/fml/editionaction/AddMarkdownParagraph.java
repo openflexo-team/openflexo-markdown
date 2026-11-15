@@ -20,6 +20,7 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
@@ -75,7 +76,7 @@ public interface AddMarkdownParagraph
 		}
 
 		@Override
-		public MarkdownParagraph execute(RunTimeEvaluationContext evaluationContext) {
+		public MarkdownParagraph execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
 				logger.warning("AddMarkdownParagraph: receiver document is null");
