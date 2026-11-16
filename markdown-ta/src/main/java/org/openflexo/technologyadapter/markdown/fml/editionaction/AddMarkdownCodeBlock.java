@@ -20,13 +20,13 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
+import org.openflexo.foundation.fml.rt.error.FMLEvaluation;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
 import org.openflexo.connie.DataBinding;
-import org.openflexo.connie.exception.NullReferenceException;
-import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefiningReceiver;
@@ -90,20 +90,14 @@ public interface AddMarkdownCodeBlock
 		public MarkdownCodeBlock execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
-				logger.warning("AddMarkdownCodeBlock: receiver document is null");
-				return null;
+				throw new FMLNullReferenceError("AddMarkdownCodeBlock: receiver document is null");
 			}
 			String lang = null;
 			String code = "";
-			try {
-				lang = getLanguage().getBindingValue(evaluationContext);
-				String c = getContent().getBindingValue(evaluationContext);
-				if (c != null) {
-					code = c;
-				}
-			}
-			catch (TypeMismatchException | NullReferenceException | ReflectiveOperationException e) {
-				logger.warning("AddMarkdownCodeBlock: binding evaluation failed: " + e.getMessage());
+			lang = FMLEvaluation.evaluate(getLanguage(), evaluationContext, this);
+			String c = FMLEvaluation.evaluate(getContent(), evaluationContext, this);
+			if (c != null) {
+				code = c;
 			}
 
 			MarkdownCodeBlock cb = document.getFactory().makeNewMarkdownCodeBlock(null);

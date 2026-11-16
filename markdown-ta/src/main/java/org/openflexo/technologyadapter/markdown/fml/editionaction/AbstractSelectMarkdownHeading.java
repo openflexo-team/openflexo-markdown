@@ -20,6 +20,8 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
+import org.openflexo.foundation.fml.rt.error.FMLEvaluation;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -27,8 +29,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.openflexo.connie.DataBinding;
-import org.openflexo.connie.exception.NullReferenceException;
-import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.fml.editionaction.AbstractFetchRequest;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
@@ -80,17 +80,13 @@ public interface AbstractSelectMarkdownHeading<AT>
 		public List<MarkdownHeading> performExecute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
-				return new ArrayList<>();
+				// A null source (CORE-F-11)
+				throw new FMLNullReferenceError(getStringRepresentation() + ": nothing to select from");
 			}
 
 			Integer filterLevel = null;
 			if (getLevel() != null && getLevel().isSet()) {
-				try {
-					filterLevel = getLevel().getBindingValue(evaluationContext);
-				}
-				catch (TypeMismatchException | NullReferenceException | ReflectiveOperationException e) {
-					logger.warning("SelectMarkdownHeading: level binding evaluation failed: " + e.getMessage());
-				}
+				filterLevel = FMLEvaluation.evaluate(getLevel(), evaluationContext, this);
 			}
 
 			List<MarkdownHeading> candidates = document.getElements(MarkdownHeading.class);

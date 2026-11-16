@@ -27,6 +27,9 @@ import java.util.logging.Logger;
 import org.openflexo.foundation.FlexoException;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.editionaction.AbstractCreateResource;
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
+import org.openflexo.foundation.fml.rt.error.FMLCancellation;
+import org.openflexo.foundation.fml.rt.error.FMLTechnologyError;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import org.openflexo.foundation.fml.rt.ReturnException;
 import org.openflexo.foundation.fml.rt.RunTimeEvaluationContext;
@@ -70,8 +73,12 @@ public interface CreateMarkdownDocumentResource
 			String resourceURI = getResourceURI(evaluationContext);
 			FlexoResourceCenter<?> rc = getResourceCenter(evaluationContext);
 
-			logger.info("CreateMarkdownDocumentResource: name=" + resourceName + " uri=" + resourceURI
-					+ " relativePath=" + getRelativePath() + " rc=" + rc);
+			if (resourceName == null) {
+				throw new FMLNullReferenceError("The name of the new Markdown document is null");
+			}
+			if (!(rc instanceof FileSystemBasedResourceCenter)) {
+				throw new FMLTechnologyError("A Markdown document can only be created in a resource center of the file system, not in " + rc);
+			}
 
 			MarkdownTechnologyAdapter markdownTA = getServiceManager().getTechnologyAdapterService()
 					.getTechnologyAdapter(MarkdownTechnologyAdapter.class);
@@ -84,18 +91,17 @@ public interface CreateMarkdownDocumentResource
 					return newResource.getResourceData();
 				}
 				catch (FileNotFoundException e) {
-					throw new FMLExecutionException(e);
+					throw new FMLTechnologyError("CreateMarkdownDocumentResource: " + e.getMessage(), e);
 				}
 				catch (ResourceLoadingCancelledException e) {
-					throw new FMLExecutionException(e);
+					throw new FMLCancellation("Loading cancelled", e);
 				}
 				catch (FlexoException e) {
-					throw new FMLExecutionException(e);
+					throw new FMLTechnologyError("CreateMarkdownDocumentResource: " + e.getMessage(), e);
 				}
 			}
 
-			logger.warning("Cannot create MarkdownDocumentResource!");
-			return null;
+			throw new FMLTechnologyError("Cannot create the Markdown document resource");
 		}
 	}
 }

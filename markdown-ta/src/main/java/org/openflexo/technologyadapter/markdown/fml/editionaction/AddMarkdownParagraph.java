@@ -20,13 +20,13 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
+import org.openflexo.foundation.fml.rt.error.FMLEvaluation;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
 import org.openflexo.connie.DataBinding;
-import org.openflexo.connie.exception.NullReferenceException;
-import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.annotations.FMLAttribute;
 import org.openflexo.foundation.fml.editionaction.TechnologySpecificActionDefiningReceiver;
@@ -79,18 +79,12 @@ public interface AddMarkdownParagraph
 		public MarkdownParagraph execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
-				logger.warning("AddMarkdownParagraph: receiver document is null");
-				return null;
+				throw new FMLNullReferenceError("AddMarkdownParagraph: receiver document is null");
 			}
 			String paragraphText = "";
-			try {
-				String t = getText().getBindingValue(evaluationContext);
-				if (t != null) {
-					paragraphText = t;
-				}
-			}
-			catch (TypeMismatchException | NullReferenceException | ReflectiveOperationException e) {
-				logger.warning("AddMarkdownParagraph: binding evaluation failed: " + e.getMessage());
+			String t = FMLEvaluation.evaluate(getText(), evaluationContext, this);
+			if (t != null) {
+				paragraphText = t;
 			}
 
 			MarkdownParagraph paragraph = document.getFactory().makeNewMarkdownParagraph(null);

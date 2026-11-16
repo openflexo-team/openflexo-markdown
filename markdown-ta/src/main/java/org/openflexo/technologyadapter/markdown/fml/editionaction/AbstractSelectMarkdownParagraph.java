@@ -20,6 +20,7 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,7 +60,8 @@ public interface AbstractSelectMarkdownParagraph<AT>
 		public List<MarkdownParagraph> performExecute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
-				return new ArrayList<>();
+				// A null source (CORE-F-11)
+				throw new FMLNullReferenceError(getStringRepresentation() + ": nothing to select from");
 			}
 			List<MarkdownParagraph> candidates = document.getElements(MarkdownParagraph.class);
 			return filterWithConditions(candidates, evaluationContext);

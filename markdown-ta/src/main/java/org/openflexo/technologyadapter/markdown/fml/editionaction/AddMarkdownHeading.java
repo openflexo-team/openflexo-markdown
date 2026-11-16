@@ -20,13 +20,13 @@
 
 package org.openflexo.technologyadapter.markdown.fml.editionaction;
 
+import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
+import org.openflexo.foundation.fml.rt.error.FMLEvaluation;
 import org.openflexo.foundation.fml.rt.error.FMLExecutionException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
 import org.openflexo.connie.DataBinding;
-import org.openflexo.connie.exception.NullReferenceException;
-import org.openflexo.connie.exception.TypeMismatchException;
 import org.openflexo.foundation.doc.NamedDocStyle;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.annotations.FMLAttribute;
@@ -92,23 +92,17 @@ public interface AddMarkdownHeading
 		public MarkdownHeading execute(RunTimeEvaluationContext evaluationContext) throws FMLExecutionException {
 			MarkdownDocument document = getReceiver(evaluationContext);
 			if (document == null) {
-				logger.warning("AddMarkdownHeading: receiver document is null");
-				return null;
+				throw new FMLNullReferenceError("AddMarkdownHeading: receiver document is null");
 			}
 			int headingLevel = 1;
 			String headingText = "";
-			try {
-				Integer lvl = getLevel().getBindingValue(evaluationContext);
-				if (lvl != null) {
-					headingLevel = Math.max(1, Math.min(lvl, 6));
-				}
-				String t = getText().getBindingValue(evaluationContext);
-				if (t != null) {
-					headingText = t;
-				}
+			Integer lvl = FMLEvaluation.evaluate(getLevel(), evaluationContext, this);
+			if (lvl != null) {
+				headingLevel = Math.max(1, Math.min(lvl, 6));
 			}
-			catch (TypeMismatchException | NullReferenceException | ReflectiveOperationException e) {
-				logger.warning("AddMarkdownHeading: binding evaluation failed: " + e.getMessage());
+			String t = FMLEvaluation.evaluate(getText(), evaluationContext, this);
+			if (t != null) {
+				headingText = t;
 			}
 
 			MarkdownHeading heading = document.getFactory().makeNewMarkdownHeading(null);
