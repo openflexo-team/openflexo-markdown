@@ -24,7 +24,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
-import org.openflexo.foundation.FlexoException;
+import org.openflexo.foundation.OpenflexoRuntimeException;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.fml.editionaction.AbstractCreateResource;
 import org.openflexo.foundation.fml.rt.error.FMLNullReferenceError;
@@ -96,7 +96,7 @@ public interface CreateMarkdownDocumentResource
 				catch (ResourceLoadingCancelledException e) {
 					throw new FMLCancellation("Loading cancelled", e);
 				}
-				catch (FlexoException e) {
+				catch (OpenflexoRuntimeException e) {
 					throw new FMLTechnologyError("CreateMarkdownDocumentResource: " + e.getMessage(), e);
 				}
 			}

@@ -33,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.openflexo.foundation.FlexoException;
+import org.openflexo.foundation.OpenflexoRuntimeException;
 import org.openflexo.foundation.resource.FileIODelegate;
 import org.openflexo.foundation.resource.FileWritingLock;
 import org.openflexo.foundation.resource.PamelaResourceImpl;
@@ -67,7 +67,7 @@ public abstract class MarkdownDocumentResourceImpl
 	protected MarkdownDocument performLoad() throws IOException, Exception {
 
 		if (getFlexoIOStreamDelegate() == null) {
-			throw new FlexoException("Cannot load Markdown document with this IO/delegate: " + getIODelegate());
+			throw new OpenflexoRuntimeException("Cannot load Markdown document with this IO/delegate: " + getIODelegate());
 		}
 
 		Progress.progress(getLocales().localizedForKey("loading") + " " + getIODelegate().getSerializationArtefact());
@@ -151,7 +151,7 @@ public abstract class MarkdownDocumentResourceImpl
 			e.printStackTrace();
 			return null;
 		}
-		catch (FlexoException e) {
+		catch (OpenflexoRuntimeException e) {
 			e.printStackTrace();
 			return null;
 		}

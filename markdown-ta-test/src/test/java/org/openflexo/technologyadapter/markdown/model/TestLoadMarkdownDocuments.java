@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openflexo.foundation.FlexoException;
+import org.openflexo.foundation.OpenflexoRuntimeException;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.technologyadapter.markdown.AbstractTestMarkdown;
@@ -99,7 +99,7 @@ public class TestLoadMarkdownDocuments extends AbstractTestMarkdown {
 				try {
 					resource.loadResourceData();
 				}
-				catch (FileNotFoundException | ResourceLoadingCancelledException | FlexoException e) {
+				catch (FileNotFoundException | ResourceLoadingCancelledException | OpenflexoRuntimeException e) {
 					e.printStackTrace();
 				}
 				assertNotNull("Resource failed to load: " + resource.getURI(), resource.getLoadedResourceData());

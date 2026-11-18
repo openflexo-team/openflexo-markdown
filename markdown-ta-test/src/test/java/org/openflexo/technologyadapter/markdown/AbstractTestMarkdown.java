@@ -26,7 +26,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 import org.junit.AfterClass;
-import org.openflexo.foundation.FlexoException;
+import org.openflexo.foundation.OpenflexoRuntimeException;
 import org.openflexo.foundation.FlexoServiceManager;
 import org.openflexo.foundation.resource.FlexoResource;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
@@ -106,7 +106,7 @@ public abstract class AbstractTestMarkdown extends OpenflexoProjectAtRunTimeTest
 		catch (ResourceLoadingCancelledException e) {
 			e.printStackTrace();
 		}
-		catch (FlexoException e) {
+		catch (OpenflexoRuntimeException e) {
 			e.printStackTrace();
 		}
 		assertNotNull("Document " + documentName + " failed to load", document);
