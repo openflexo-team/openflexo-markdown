@@ -112,7 +112,7 @@ public model MarkdownModel {
         log "TEST 4: SelectMarkdownHeading";
         log "----------------------------------------------";
 
-        List<MarkdownHeading> allHeadings = MD::SelectMarkdownHeading() from markdownDoc;
+        List<MarkdownHeading> allHeadings = select MarkdownHeading from (markdownDoc);
         log "Total headings: " + allHeadings.size();
         if (allHeadings.size() < 3) {
             log "ERROR: Expected at least 3 headings, got " + allHeadings.size();
@@ -120,7 +120,7 @@ public model MarkdownModel {
             log "TEST 4a PASSED! (all headings)";
         }
 
-        List<MarkdownHeading> level2Headings = MD::SelectMarkdownHeading(level=2) from markdownDoc;
+        List<MarkdownHeading> level2Headings = select MarkdownHeading from (markdownDoc) where (selected.level == 2);
         log "Level-2 headings: " + level2Headings.size();
         if (level2Headings.size() != 2) {
             log "ERROR: Expected 2 level-2 headings, got " + level2Headings.size();
@@ -133,7 +133,7 @@ public model MarkdownModel {
         log "TEST 5: SelectUniqueMarkdownHeading";
         log "----------------------------------------------";
 
-        MarkdownHeading uniqueH1 = MD::SelectUniqueMarkdownHeading(level=1) from markdownDoc;
+        MarkdownHeading uniqueH1 = select unique MarkdownHeading from (markdownDoc) where (selected.level == 1);
         if (uniqueH1 == null) {
             log "ERROR: SelectUniqueMarkdownHeading(level=1) returned null";
         } else {
@@ -146,7 +146,7 @@ public model MarkdownModel {
         log "TEST 6: SelectMarkdownParagraph";
         log "----------------------------------------------";
 
-        List<MarkdownParagraph> allParagraphs = MD::SelectMarkdownParagraph() from markdownDoc;
+        List<MarkdownParagraph> allParagraphs = select MarkdownParagraph from (markdownDoc);
         log "Total paragraphs: " + allParagraphs.size();
         if (allParagraphs.size() < 2) {
             log "ERROR: Expected at least 2 paragraphs, got " + allParagraphs.size();
